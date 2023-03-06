@@ -24,7 +24,6 @@ export class FindApiListComponent implements OnInit {
   }
 
   filter(): void {
-    this.initialServers = this.actualServers$;
     if (this.findByName === '') {
       this.actualServers$ = this.initialServers
     }
