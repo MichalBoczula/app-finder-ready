@@ -4,19 +4,32 @@ import { FindApiElementComponent } from './find-api-element/find-api-element.com
 import { FindApiListComponent } from './find-api-list/find-api-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FindApiContainerComponent } from './find-api-container/find-api-container.component';
+import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const ROUTES: any = [
+  { path: "details/:name", component: FindApiListComponent },
+  { path: "list", component: FindApiElementComponent },
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  { path: "**", component: PageNotFoundComponent },
+];
 
 @NgModule({
   declarations: [
     FindApiElementComponent,
-    FindApiListComponent
+    FindApiListComponent,
+    FindApiContainerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(ROUTES),
   ],
   exports: [
-    FindApiListComponent
+    FindApiContainerComponent
   ]
 })
 export class FindApiModule { }

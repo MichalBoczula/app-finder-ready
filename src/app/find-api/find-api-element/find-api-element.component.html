@@ -1,4 +1,35 @@
 <div class="input-group my-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Find API bro!!!</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
- </div>
+    <input type="text" class="form-control" name="name">
+    <button type="submit" class="btn btn-dark">Submit</button>
+</div>
+
+<div class="card-group">
+    <div class="card">
+        <a class="nav-link" [routerLink]="['/details', 'domain1']">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Domain 1</h5>
+                <p class="card-text">random description</p>
+            </div>
+        </a>
+    </div>
+    <div class="card">
+        <a class="nav-link" [routerLink]="['/details', 'domain1']">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Domain 2</h5>
+                <p class="card-text">random description</p>
+            </div>
+        </a>
+    </div>
+    <div class="card">
+        <a class="nav-link" [routerLink]="['/details', 'domain1']">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Doimain 3</h5>
+                <p class="card-text">random description</p>
+            </div>
+        </a>
+    </div>
+</div>
