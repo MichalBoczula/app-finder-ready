@@ -13,7 +13,7 @@
                 <p class="card-text" *ngFor="let ele of domain.apis">
                     {{ele}}
                 </p>
-                <a class="btn btn-primary" [routerLink]="['/list']">Check servers list</a>
+                <a class="btn btn-primary" [routerLink]="['/list', 'domainNme']">Check servers list</a>
             </div>
         </div>
     </div>
