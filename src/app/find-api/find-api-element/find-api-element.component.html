@@ -1,35 +1,20 @@
 <div class="input-group my-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Find API bro!!!</span>
-    <input type="text" class="form-control" name="name">
-    <button type="submit" class="btn btn-dark">Submit</button>
+    <input type="text" class="form-control" placeholder="Type api name..." [(ngModel)]="findByName" name="name">
+    <button type="submit" class="btn btn-dark" (click)="filter()">Submit</button>
 </div>
 
-<div class="card-group">
-    <div class="card">
-        <a class="nav-link" [routerLink]="['/details', 'domain1']">
-            <img src="..." class="card-img-top" alt="...">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3  g-4">
+    <div class="col" *ngFor="let domain of actualDomains$ | async">
+        <div class="card">
+            <img src="../../../assets/images/kruk-logo.png" class="card-img-top" id="image">
             <div class="card-body">
-                <h5 class="card-title">Domain 1</h5>
-                <p class="card-text">random description</p>
+                <h5 class="card-title">{{domain.name}}</h5>
+                <p class="card-text" *ngFor="let ele of domain.apis">
+                    {{ele}}
+                </p>
+                <a class="btn btn-primary" [routerLink]="['/list']">Check servers list</a>
             </div>
-        </a>
-    </div>
-    <div class="card">
-        <a class="nav-link" [routerLink]="['/details', 'domain1']">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Domain 2</h5>
-                <p class="card-text">random description</p>
-            </div>
-        </a>
-    </div>
-    <div class="card">
-        <a class="nav-link" [routerLink]="['/details', 'domain1']">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Doimain 3</h5>
-                <p class="card-text">random description</p>
-            </div>
-        </a>
+        </div>
     </div>
 </div>

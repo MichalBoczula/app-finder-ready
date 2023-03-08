@@ -9,9 +9,9 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const ROUTES: any = [
-  { path: "details/:name", component: FindApiListComponent },
+  { path: "domains/:name", component: FindApiListComponent },
   { path: "list", component: FindApiElementComponent },
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  { path: '', redirectTo: 'domains', pathMatch: 'full' },
   { path: "**", component: PageNotFoundComponent },
 ];
 
