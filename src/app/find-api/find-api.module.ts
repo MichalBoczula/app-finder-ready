@@ -7,6 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { FindApiContainerComponent } from './find-api-container/find-api-container.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { FindApiReducer } from './state/find-api.reducer';
+import { FindApiEffects } from './state/effects/find-api.effects';
 
 const ROUTES: any = [
   { path: "list/:name", component: FindApiListComponent },
@@ -26,7 +30,9 @@ const ROUTES: any = [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forChild(ROUTES),
+    StoreModule.forFeature('FindApiReducer', FindApiReducer),
+    EffectsModule.forFeature([FindApiEffects]),
   ],
   exports: [
     FindApiContainerComponent

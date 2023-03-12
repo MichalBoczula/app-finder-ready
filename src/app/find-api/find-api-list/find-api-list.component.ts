@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subject, Subscription, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { FindApiService } from '../service/find-api.service';
+import { getError, getServers, getTest } from '../state/selectors/find-api.selectors';
 import { ServerModel } from '../state/ServerModel';
+import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
 
 @Component({
   selector: 'app-find-api-list',
@@ -17,10 +20,15 @@ export class FindApiListComponent implements OnInit {
 
   findByName: string = '';
 
-  constructor(private findApiService: FindApiService) { }
+  errorMessage$?: Observable<string>;
+
+  constructor(private findApiService: FindApiService, private store: Store<any>) { }
 
   ngOnInit(): void {
     this.initialServers = this.actualServers$;
+    this.store.dispatch(FindApiRequestActions.loadServerModels());
+    this.actualServers$ = this.store.select(getServers);
+    this.errorMessage$ = this.store.select(getError);
   }
 
   filter(): void {
