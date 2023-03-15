@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { FindApiService } from '../service/find-api.service';
 import { getError, getServers, getLoaded } from '../state/selectors/find-api.selectors';
 import { ServerModel } from '../state/ServerModel';
 import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
@@ -24,7 +23,7 @@ export class FindApiListComponent implements OnInit {
 
   loaded$?: Observable<boolean>;
 
-  constructor(private findApiService: FindApiService, private store: Store<any>) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
     this.store.dispatch(FindApiRequestActions.loadServerModels());

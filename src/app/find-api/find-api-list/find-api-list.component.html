@@ -26,9 +26,23 @@
   <tbody>
     <tr *ngFor="let server of actualServers$ | async">
       <td>{{server.name}}</td>
-      <td>{{server.server}}</td>
+      <td *ngIf="server.server; else test_server">
+        Production
+      </td>
+      <ng-template #test_server>
+        <td>
+          Test
+        </td>
+      </ng-template>
       <td>{{server.url}}</td>
-      <td>{{server.availability}}</td>
+      <td *ngIf="server.availability; else unavailable">
+        <bi name="check2-circle" class="icon check"></bi>
+      </td>
+      <ng-template #unavailable>
+        <td>
+          <bi name="X-circle" class="icon fail"></bi>
+        </td>
+      </ng-template>
     </tr>
   </tbody>
 </table>
