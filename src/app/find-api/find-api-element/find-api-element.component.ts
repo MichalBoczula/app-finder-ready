@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { FindApiService } from '../service/find-api.service';
 import { DomainModel } from '../state/DomainModel';
+import { getDomains, getError, getLoaded, getServers } from '../state/selectors/find-api.selectors';
+import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
 
 @Component({
   selector: 'app-find-api-element',
@@ -12,13 +15,21 @@ export class FindApiElementComponent implements OnInit {
 
   private initialDomains!: Observable<DomainModel[]>;
 
-  actualDomains$ = this.findApiService.domains$;
+  actualDomains$?:  Observable<DomainModel[]>;
+  
+  errorMessage$?: Observable<string>;
 
   findByName: string = '';
 
-  constructor(private findApiService: FindApiService) { }
+  loaded$?: Observable<boolean>;
+
+  constructor(private findApiService: FindApiService, private store: Store<any>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(FindApiRequestActions.loadDomainModels());
+    this.actualDomains$ = this.store.select(getDomains);
+    this.errorMessage$ = this.store.select(getError);
+    this.loaded$ = this.store.select(getLoaded);
     this.initialDomains = this.actualDomains$;
   }
 
@@ -28,7 +39,7 @@ export class FindApiElementComponent implements OnInit {
     }
     else {
       let localDomains: DomainModel[] = []
-      this.actualDomains$.subscribe(x => localDomains = x);
+      this.actualDomains$?.subscribe(x => localDomains = x);
 
       this.actualDomains$ = of(localDomains.map(x => {
         let apis = x.apis.filter(y => y.toLocaleLowerCase().includes(this.findByName));

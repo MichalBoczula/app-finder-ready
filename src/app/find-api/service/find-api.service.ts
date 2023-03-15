@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, shareReplay, tap, throwError } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { DomainModel } from '../state/DomainModel';
 import { ServerModel } from '../state/ServerModel';
 
@@ -18,15 +18,13 @@ export class FindApiService {
   servers$ = this.httpClient.get<ServerModel[]>(this.servers)
     .pipe(
       tap(x => console.log(JSON.stringify(x))),
-      catchError(this.handleError),
-      shareReplay(1)
+      catchError(this.handleError)
     )
 
   domains$ = this.httpClient.get<DomainModel[]>(this.domains)
     .pipe(
       tap(x => console.log(JSON.stringify(x))),
-      catchError(this.handleError),
-      shareReplay(1)
+      catchError(this.handleError)
     )
 
   private handleError(err: HttpErrorResponse) {

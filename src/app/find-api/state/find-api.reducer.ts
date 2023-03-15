@@ -11,7 +11,8 @@ const initialState: FindApiState = {
     test: true,
     servers: [],
     domains: [],
-    error: ""
+    error: "",
+    loaded: false
 }
 
 export const FindApiReducer = createReducer<FindApiState>(
@@ -22,18 +23,50 @@ export const FindApiReducer = createReducer<FindApiState>(
             test: !state.test
         }
     }),
+    on(FindApiRequestActions.loadServerModels, (state) => {
+        return {
+            ...state,
+            servers: [],
+            error: '',
+            loaded: false
+        }
+    }),
     on(FindApiRequestActions.loadServerModelsSuccess, (state, action) => {
         return {
             ...state,
             servers: action.servers,
-            error: ''
+            error: '',
+            loaded: true
         }
     }),
     on(FindApiRequestActions.loadServerModelsFailure, (state, action) => {
         return {
             ...state,
             servers: [],
-            error: action.error
+            error: action.error,
+            loaded: true
+        }
+    }),
+    on(FindApiRequestActions.loadDomainModels, (state) => {
+        return {
+            ...state,
+            domains: [],
+            loaded: false
+        }
+    }),
+    on(FindApiRequestActions.loadDomainModelsSuccess, (state, action) => {
+        return {
+            ...state,
+            domains: action.domains,
+            loaded: true
+        }
+    }),
+    on(FindApiRequestActions.loadDomainModelsFailure, (state, action) => {
+        return {
+            ...state,
+            servers: [],
+            error: action.error,
+            loaded: true
         }
     })
 )

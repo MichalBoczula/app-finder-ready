@@ -6,4 +6,5 @@ export interface FindApiState {
     servers: ServerModel[],
     domains: DomainModel[],
     error: string,
-}
+    loaded: boolean;
+} 

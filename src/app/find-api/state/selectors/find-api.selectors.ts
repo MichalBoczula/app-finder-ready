@@ -13,7 +13,17 @@ export const getServers = createSelector(
     state => state.servers
 );
 
+export const getDomains = createSelector(
+    getFindApiState,
+    state => state.domains
+);
+
 export const getError = createSelector(
     getFindApiState,
     state => state.error
+);
+
+export const getLoaded = createSelector(
+    getFindApiState,
+    state => state.loaded
 );

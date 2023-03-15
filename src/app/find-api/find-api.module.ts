@@ -11,6 +11,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FindApiReducer } from './state/find-api.reducer';
 import { FindApiEffects } from './state/effects/find-api.effects';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FindApiInMemoryDatabase } from '../find-api-in-memory-database';
 
 const ROUTES: any = [
   { path: "list/:name", component: FindApiListComponent },
@@ -33,6 +35,7 @@ const ROUTES: any = [
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature('FindApiReducer', FindApiReducer),
     EffectsModule.forFeature([FindApiEffects]),
+    HttpClientInMemoryWebApiModule.forFeature(FindApiInMemoryDatabase, { delay: 1000 }),
   ],
   exports: [
     FindApiContainerComponent

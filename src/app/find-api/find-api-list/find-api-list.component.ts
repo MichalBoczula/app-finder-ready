@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { FindApiService } from '../service/find-api.service';
-import { getError, getServers, getTest } from '../state/selectors/find-api.selectors';
+import { getError, getServers, getLoaded } from '../state/selectors/find-api.selectors';
 import { ServerModel } from '../state/ServerModel';
 import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
 
@@ -16,19 +16,22 @@ export class FindApiListComponent implements OnInit {
 
   private initialServers!: Observable<ServerModel[]>;
 
-  actualServers$ = this.findApiService.servers$
+  actualServers$?:Observable<ServerModel[]>;
 
   findByName: string = '';
 
   errorMessage$?: Observable<string>;
 
+  loaded$?: Observable<boolean>;
+
   constructor(private findApiService: FindApiService, private store: Store<any>) { }
 
   ngOnInit(): void {
-    this.initialServers = this.actualServers$;
     this.store.dispatch(FindApiRequestActions.loadServerModels());
     this.actualServers$ = this.store.select(getServers);
     this.errorMessage$ = this.store.select(getError);
+    this.loaded$ = this.store.select(getLoaded);
+    this.initialServers = this.actualServers$;
   }
 
   filter(): void {
@@ -37,7 +40,7 @@ export class FindApiListComponent implements OnInit {
     }
     else {
       let localServers: ServerModel[] = [];
-      this.actualServers$.subscribe(x => localServers = x);
+      this.actualServers$?.subscribe(x => localServers = x);
       this.actualServers$ = of(localServers.filter(x => x.name.toLowerCase().includes(this.findByName)));
       this.findByName = '';
     }
