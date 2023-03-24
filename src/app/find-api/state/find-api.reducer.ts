@@ -12,7 +12,8 @@ const initialState: FindApiState = {
     servers: [],
     domains: [],
     error: "",
-    loaded: false
+    loaded: false,
+    actualDomain: ""
 }
 
 export const FindApiReducer = createReducer<FindApiState>(
@@ -68,5 +69,11 @@ export const FindApiReducer = createReducer<FindApiState>(
             error: action.error,
             loaded: true
         }
-    })
+    }),
+    on(FindApiActions.setDomain, (state, action): FindApiState => {
+        return {
+            ...state,
+            actualDomain: action.domainName
+        }
+    }),
 )

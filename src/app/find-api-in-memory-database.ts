@@ -42,6 +42,90 @@ export class FindApiInMemoryDatabase implements InMemoryDbService {
                 server: 0,
                 url: "dryn dryn",
                 availability: 0
+            },
+            {
+                name: "DateExchange Api",
+                server: 1,
+                url: "exchange data",
+                availability: 1
+            },
+            {
+                name: "DateExchange Api",
+                server: 0,
+                url: "exchange data",
+                availability: 1
+            },
+            {
+                name: "CEIDG Api",
+                server: 1,
+                url: "ceidg data",
+                availability: 1
+            },
+            {
+                name: "CEIDG Api",
+                server: 0,
+                url: "ceidg data",
+                availability: 0
+            },
+            {
+                name: "Payment Api",
+                server: 1,
+                url: "pay money",
+                availability: 1
+            },
+            {
+                name: "Payment Api",
+                server: 0,
+                url: "pay money",
+                availability: 1
+            },
+            {
+                name: "Invoice Api",
+                server: 1,
+                url: "invoices",
+                availability: 1
+            },
+            {
+                name: "Invoice Api",
+                server: 0,
+                url: "invoices",
+                availability: 0
+            },
+            {
+                name: "Direct Debit Api",
+                server: 1,
+                url: "It's debit",
+                availability: 1
+            },
+            {
+                name: "Direct Debit Api",
+                server: 0,
+                url: "It's debit",
+                availability: 0
+            },
+            {
+                name: "Ekruk Api",
+                server: 1,
+                url: "e raven",
+                availability: 1
+            },
+            {
+                name: "Ekruk Api",
+                server: 0,
+                url: "e raven",
+                availability: 1
+            },
+            {
+                name: "CRM Api",
+                server: 1,
+                url: "crm",
+                availability: 1
+            },
+            {
+                name: "CRM Api",
+                server: 0,
+                url: "crm",
+                availability: 0
             }
         ];
 

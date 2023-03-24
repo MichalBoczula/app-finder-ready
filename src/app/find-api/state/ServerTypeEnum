@@ -1,4 +1,0 @@
-export enum ServerTypeEnum {
-    Test = 1,
-    Production
-}

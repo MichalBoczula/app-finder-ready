@@ -27,3 +27,8 @@ export const getLoaded = createSelector(
     getFindApiState,
     state => state.loaded
 );
+
+export const getDomainName = createSelector(
+    getFindApiState,
+    state => state.actualDomain
+);

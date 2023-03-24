@@ -8,43 +8,52 @@
   {{errorMessage}}
 </div>
 
-<div class="d-flex align-items-center justify-content-center" *ngIf="!(loaded$ | async)">
+<div class="d-flex align-items-center justify-content-center" *ngIf="!(loaded$ | async); else content">
   <div class="spinner-grow m-3" style="width: 5rem; height: 5rem;" role="status">
   </div>
   <strong>Loading...</strong>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Server</th>
-      <th scope="col">URL</th>
-      <th scope="col">Availability</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let server of actualServers$ | async">
-      <td>{{server.name}}</td>
-      <td *ngIf="server.server; else test_server">
-        Production
-      </td>
-      <ng-template #test_server>
-        <td>
-          Test
+<ng-template #content>
+  <div *ngIf="test$ | async as test">
+    <h2>{{test}}</h2>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Server</th>
+        <th scope="col">URL</th>
+        <th scope="col">Availability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let server of actualServers$ | async">
+        <td>{{server.name}}</td>
+        <td *ngIf="server.server; else test_server">
+          Production
         </td>
-      </ng-template>
-      <td>{{server.url}}</td>
-      <td *ngIf="server.availability; else unavailable">
-        <bi name="check2-circle" class="icon check"></bi>
-      </td>
-      <ng-template #unavailable>
+        <ng-template #test_server>
+          <td>
+            Test
+          </td>
+        </ng-template>
         <td>
-          <bi name="X-circle" class="icon fail"></bi>
+          <a target="_blank" href="http://tytus-new.kruk-inkaso.com.pl:9878/latest/swagger/index.html">
+            {{server.url}}
+          </a>
         </td>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
+        <td *ngIf="server.availability; else unavailable">
+          <bi name="check2-circle" class="icon check"></bi>
+        </td>
+        <ng-template #unavailable>
+          <td>
+            <bi name="X-circle" class="icon fail"></bi>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
 
 <a class="btn btn-primary" [routerLink]="['/domains']">Come back bro!</a>

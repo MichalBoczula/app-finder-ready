@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { DomainModel } from '../state/DomainModel';
-import { getDomains, getError, getLoaded, getServers } from '../state/selectors/find-api.selectors';
+import { getDomains, getError, getLoaded } from '../state/selectors/find-api.selectors';
 import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
+import * as FindApiActions from '../state/actions/find-api.actions'
 
 @Component({
   selector: 'app-find-api-element',
@@ -14,8 +15,8 @@ export class FindApiElementComponent implements OnInit {
 
   private initialDomains!: Observable<DomainModel[]>;
 
-  actualDomains$?:  Observable<DomainModel[]>;
-  
+  actualDomains$?: Observable<DomainModel[]>;
+
   errorMessage$?: Observable<string>;
 
   findByName: string = '';
@@ -49,5 +50,9 @@ export class FindApiElementComponent implements OnInit {
 
       this.findByName = '';
     }
+  }
+
+  setDomain(domain: string): void {
+    this.store.dispatch(FindApiActions.setDomain({domainName: domain}));
   }
 }

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { getError, getServers, getLoaded } from '../state/selectors/find-api.selectors';
+import { getError, getServers, getLoaded, getDomainName} from '../state/selectors/find-api.selectors';
 import { ServerModel } from '../state/ServerModel';
-import * as FindApiRequestActions from '../state/actions/find-api.request.actions'
+import * as FindApiRequestActions from '../state/actions/find-api.request.actions';
 
 @Component({
   selector: 'app-find-api-list',
@@ -23,6 +23,8 @@ export class FindApiListComponent implements OnInit {
 
   loaded$?: Observable<boolean>;
 
+  test$?: Observable<string>;
+
   constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class FindApiListComponent implements OnInit {
     this.errorMessage$ = this.store.select(getError);
     this.loaded$ = this.store.select(getLoaded);
     this.initialServers = this.actualServers$;
+    this.test$ = this.store.select(getDomainName);
   }
 
   filter(): void {
