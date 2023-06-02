@@ -15,10 +15,10 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     FindApiModule,
     StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: isDevMode() }),
     StoreModule.forRoot([]),
     EffectsModule.forRoot({}),
     RouterModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent]
